@@ -9,7 +9,7 @@ wb = openpyxl.Workbook()
 filename = "parts.xlsx"
 
 def get_items(keyword):
-    token = open("token.txt", 'r').read().replace("/n", '')
+    token = open("token.txt", 'r').read().replace("\n", '')
 
     try:
         api = Finding(appid=token, config_file=None)
