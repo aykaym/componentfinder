@@ -135,6 +135,8 @@ def get_drives(part_data):
                          cache_amount=cache_amount, price_per_gb=price_per_gb, price=price)
         session.add(new_part)
         session.commit()
+        print("Storage Drive info for " + model + " has been added to the DB")
+
 
 
 get_motherboards(part_data)

@@ -78,7 +78,7 @@ class Drive(Base):
     model = Column(String(250), nullable=False)
     model_line = Column(String(250))
     form_factor = Column(String(250))
-    platter = Column(String(250))
+    platter_rpm = Column(String(250))
     capacity = Column(String(250))
     cache_amount = Column(String(250))
     price_per_gb = Column(String(250))

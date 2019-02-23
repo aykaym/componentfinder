@@ -8,6 +8,9 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 
 session = DBSession()
+gpus = []
+for gpu in session.query(GPU).filter():
+    if gpu.chipset not in gpus:
+        gpus.append(gpu.chipset)
 
-for mobo in session.query(Motherboard).filter():
-     print(mobo.model)
+

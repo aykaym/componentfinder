@@ -8,6 +8,8 @@ import openpyxl
 wb = openpyxl.Workbook()
 filename = "parts.xlsx"
 
+
+
 def get_items(keyword):
     token = open("token.txt", 'r').read().replace("\n", '')
 
@@ -57,32 +59,40 @@ def create_xlsx(keyword, listings):
     for listing in listings:
         ws2.append(listing)
 
-    match_parts(keyword, listings)
+    match_parts(listings)
 
 
-def match_parts(keyword, listings):
+def match_parts(listings):
+    for listing in listings:
+        title = listing[1]
+        current_price = listing[2]
+        for query in queries:
+            for component in query:
+                if component.model in listing[1]:
+                    print(component.model+ " found in "+ title)
+                    print("New: " + component.price)
+                    print("Ebay: " + current_price)
+                    print("-" * 120)
+
+
+def db_search():
+
     engine = create_engine('sqlite:///parts.db')
     Base.metadata.bind = engine
     DBSession = sessionmaker(bind=engine)
 
     session = DBSession()
 
-    cpus = session.query(CPU)
-    #mobos = session.query(Motherboard)
-    #memories = session.query(RAM)
-    #gpus = session.query(GPU)
-    #cases = session.query(Case)
-    #psus = session.query(PSU)
+    queries = []
 
-    for listing in listings:
-        title = listing[1]
-        current_price = listing[2]
-        for cpu in cpus:
-            if cpu.model in listing[1]:
-                print(cpu.model+ " found in "+ title)
-                print("New: " + cpu.price)
-                print("Ebay: " + current_price)
-                print("-" * 120)
+    cpus = session.query(CPU)
+    mobos = session.query(Motherboard)
+    memories = session.query(RAM)
+    gpus = session.query(GPU)
+    cases = session.query(Case)
+    psus = session.query(PSU)
+
+    queries.extend([])
 
 
 
